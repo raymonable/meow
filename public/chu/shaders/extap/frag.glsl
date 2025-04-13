@@ -1,15 +1,12 @@
 #version 300 es
 precision highp float;
 
-uniform sampler2D u_tex;
-
+in float v_time;
 in vec2 v_uv;
 out vec4 o_color;
 
 void main() {
-    vec3 channels = texture(u_tex, v_uv).xyz;
-
     o_color = vec4(
-        channels, 1.0
+        vec3(0.95), abs(sin(v_time * 2.0)) / 2.0
     );
 }

@@ -3,6 +3,7 @@ import { Howl } from "howler";
 
 const NOTE_ADDIN = 5000; // How soon before notes should be added to the group (ms) TODO: use bpm and sim speed as a factor
 const NOTE_EXPIRATION = 1000; // How long to wait past the line to remove notes from the group (ms)
+const NOTE_SPEED = 1.0; // TODO: Make this dynamic
 
 export class ChartPlayback {
     constructor(chart: Chart) {
@@ -37,6 +38,9 @@ export class ChartPlayback {
     }
     getCurrentPosition(): number {
         return (this.audio?.seek() ?? 0) - this.referenceChart.offset;
+    }
+    getChartVisualOffset(computedPosition?: number): number {
+        return ((computedPosition ?? 0) - this.getCurrentPosition()) * 20.0 * NOTE_SPEED
     }
 
     dirty: boolean = true;

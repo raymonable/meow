@@ -2,7 +2,7 @@ export class TextureManager {
     constructor(gl: WebGL2RenderingContext) {
         this.gl = gl;
     };
-    get(name: string) : Promise<WebGLTexture | undefined> {
+    get(name: string, s_param?: number, t_param?: number) : Promise<WebGLTexture | undefined> {
         return new Promise((resolve, reject) => {
             const image = new Image();
             image.onload = () => {
@@ -18,8 +18,8 @@ export class TextureManager {
                     this.gl.UNSIGNED_BYTE,
                     image,
                 );
-                this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.MIRRORED_REPEAT);
-                this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+                this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, s_param ?? this.gl.MIRRORED_REPEAT);
+                this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, t_param ?? this.gl.CLAMP_TO_EDGE);
                 this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR);
                 resolve(texture);
             };

@@ -19,6 +19,7 @@ export enum RendererType {
 // Import handlers
 import { GroundHandler } from "../component/ground";
 import { TapHandler } from "../component/tap";
+import { AirHandler } from "../component/air";
 
 export class Renderer {
     constructor(gl: WebGL2RenderingContext, playbackChart: ChartPlayback, type: RendererType) {
@@ -32,6 +33,9 @@ export class Renderer {
 
         gl.enable(gl.BLEND);
         gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.CULL_FACE);
+
+        gl.cullFace(gl.FRONT)
 
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);  
     };
@@ -39,6 +43,7 @@ export class Renderer {
         // Initialize handlers
         this.addHandler(new GroundHandler);
         this.addHandler(new TapHandler);
+        this.addHandler(new AirHandler);
     }
     async addHandler(handler: Handler) {
         if (!this.gl || !this.shaderManager || !this.meshManager || !this.textureManager) return;

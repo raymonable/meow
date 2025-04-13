@@ -14,16 +14,16 @@
             data: [
                 {
                     position: 1,
-                    width: 6,
+                    width: 4,
                     offset: 0,
                     subtype: 1,
                     type: "tap"
                 },
                 {
                     position: 1,
-                    width: 6,
-                    offset: 10,
-                    type: "tap"
+                    width: 4,
+                    offset: 0,
+                    type: "air"
                 },
                 {
                     position: 2,
@@ -33,13 +33,13 @@
                 },
                 ...(() => {
                     let c: ChartNote[] = [];
-                    for (var i = 0; 6 > i; i++) {
+                    for (var i = 0; 60 > i; i++) {
                         c.push({
-                            position: (i / 1) + 6,
+                            position: (i / 4) + 2,
                             width: 8,
                             offset: 4,
                             type: "tap",
-                            
+                            subtype: 1
                         });
                     }
                     return c;
