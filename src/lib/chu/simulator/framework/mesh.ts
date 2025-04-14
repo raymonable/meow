@@ -22,11 +22,10 @@ function parseWavefront(w: string) : MeshInformation {
             case "v":
                 // Blender's exported format is slightly different than what we'd expect.
                 // This swaps Y and Z directions to work for OpenGL, this statement is really ugly though
-                positions.push([
-                    parseFloat(d[1]),
-                    parseFloat(d[3]),
-                    parseFloat(d[2])
-                ]);
+                const x = parseFloat(d[1]);
+                const y = parseFloat(d[2]);
+                const z = parseFloat(d[3]);
+                positions.push([x, z, y]);
                 break;
             case "vt":
                 uv.push(d.splice(1).map(f => parseFloat(f)))
@@ -44,13 +43,13 @@ function parseWavefront(w: string) : MeshInformation {
     }
     file.filter(d => d[0] == "f")
     .forEach(d => {
-        d.splice(1).map(d => d.split("/")).forEach(d => {
+        d.slice(1).map(d => d.split("/")).forEach(d => {
             if (d[0])
-                mesh.position = [...mesh.position ?? [], ...positions[parseInt(d[0]) - 1]]
+                mesh.position.push(...positions[parseInt(d[0]) - 1]);
             if (d[1])
-                mesh.uv = [...mesh.uv ?? [], ...uv[parseInt(d[1]) - 1]];
+                mesh.uv.push(...uv[parseInt(d[1]) - 1]);
             if (d[2])
-                mesh.normal = [...mesh.normal ?? [], ...normals[parseInt(d[2]) - 1]];
+                mesh.normal.push(...normals[parseInt(d[2]) - 1]);
             mesh.indices?.push(mesh.indices.length);
         });
     });
