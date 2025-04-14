@@ -35,7 +35,7 @@
                     let c: ChartNote[] = [];
                     for (var i = 0; 60 > i; i++) {
                         c.push({
-                            position: (i / 4) + 0.15,
+                            position: (i) - 0.1,
                             width: 8,
                             offset: 4,
                             type: "tap",

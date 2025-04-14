@@ -5,11 +5,6 @@ const NOTE_ADDIN = 5000; // How soon before notes should be added to the group (
 const NOTE_EXPIRATION = 1000; // How long to wait past the line to remove notes from the group (ms)
 const NOTE_SPEED = 6.0; // TODO: Make this dynamic
 
-const test = new Howl({
-    src: ['/chu/samples/Tap_default.wav']
-});
-let temp_idx = 0;
-
 export class ChartPlayback {
     constructor(chart: Chart) {
         this.referenceChart = chart;
@@ -35,11 +30,6 @@ export class ChartPlayback {
             const expiration = (note.computedPosition ?? 0) + (NOTE_EXPIRATION / 1000);
             if (installation <= position && expiration > position)
                 this.accessNotes.push(note);
-
-            if (position >= note.computedPosition && temp_idx < idx) {
-                test.play();
-                temp_idx++;
-            }
         };
     };
     get(type: string, max?: number): ChartNote[] {
