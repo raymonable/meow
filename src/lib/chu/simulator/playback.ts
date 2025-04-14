@@ -3,7 +3,12 @@ import { Howl } from "howler";
 
 const NOTE_ADDIN = 5000; // How soon before notes should be added to the group (ms) TODO: use bpm and sim speed as a factor
 const NOTE_EXPIRATION = 1000; // How long to wait past the line to remove notes from the group (ms)
-const NOTE_SPEED = 1.0; // TODO: Make this dynamic
+const NOTE_SPEED = 6.0; // TODO: Make this dynamic
+
+const test = new Howl({
+    src: ['/chu/samples/Tap_default.wav']
+});
+let temp_idx = 0;
 
 export class ChartPlayback {
     constructor(chart: Chart) {
@@ -13,7 +18,7 @@ export class ChartPlayback {
         if (this.dirty) {
             // Re-read data from chart (and compute positions).
             this.referenceChart.data = this.referenceChart.data.map<ChartNote>(note => {
-                note.computedPosition = (this.referenceChart.bpm / 120) * note.position;
+                note.computedPosition = (60 / this.referenceChart.bpm) * note.position;
                 return note;
             });
             this.referenceChart.data.sort((a, b) => a.position - b.position);
@@ -30,6 +35,11 @@ export class ChartPlayback {
             const expiration = (note.computedPosition ?? 0) + (NOTE_EXPIRATION / 1000);
             if (installation <= position && expiration > position)
                 this.accessNotes.push(note);
+
+            if (position >= note.computedPosition && temp_idx < idx) {
+                test.play();
+                temp_idx++;
+            }
         };
     };
     get(type: string, max?: number): ChartNote[] {

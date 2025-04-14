@@ -17,7 +17,7 @@ export class Simulator {
 
         // TODO: maybe pass through a URL in init
         this.playbackChart.audio = new Howl({
-            src: ['/chu/samples/ConfessionsofaRottenGirl.mp3'],
+            src: ['/chu/samples/k.mp3'],
             html5: true
         });
         await this.renderer?.init();

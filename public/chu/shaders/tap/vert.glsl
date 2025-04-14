@@ -8,6 +8,7 @@ uniform mat4 u_camera;
 uniform vec4 g_note[100];
 
 out vec2 v_uv;
+out vec3 v_note;
 
 float height = 0.01; // Prevents z-fighting
 
@@ -20,5 +21,14 @@ void main() {
     
     gl_Position = u_camera * vec4(position, 1.0);
     
+    switch (int(note.a)) {
+        case 0:
+            v_note = vec3(1.0, 0.0, 0.0); break;
+        case 1:
+            v_note = vec3(1.0, 1.0, 0.0); break;
+        case 2:
+            v_note = vec3(0.0, 1.0, 0.0); break;
+    }
+
     v_uv = a_uv;
 }

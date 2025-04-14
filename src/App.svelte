@@ -9,24 +9,24 @@
         let gl = canvas?.getContext("webgl2");
         if (!gl) return;
         let simulator = new Simulator({
-            bpm: 170,
+            bpm: 110,
             offset: 0,
             data: [
                 {
-                    position: 1,
+                    position: 0.5,
                     width: 4,
                     offset: 0,
-                    subtype: 1,
+                    subtype: 2,
                     type: "tap"
                 },
                 {
-                    position: 1,
+                    position: 0.5,
                     width: 4,
                     offset: 0,
                     type: "air"
                 },
                 {
-                    position: 2,
+                    position: 1,
                     width: 8,
                     offset: 4,
                     type: "tap"
@@ -35,7 +35,7 @@
                     let c: ChartNote[] = [];
                     for (var i = 0; 60 > i; i++) {
                         c.push({
-                            position: (i / 4) + 2,
+                            position: (i / 4) + 0.15,
                             width: 8,
                             offset: 4,
                             type: "tap",
